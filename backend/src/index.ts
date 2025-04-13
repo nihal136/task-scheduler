@@ -4,12 +4,11 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
 import taskRoutes from "./routes/taskRoutes";
-dotenv.config();
 
+dotenv.config();
 const app = express();
 app.use(express.json());
 const port = process.env.PORT;
-
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
