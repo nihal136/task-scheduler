@@ -4,10 +4,6 @@
   "type": "commonjs",
   "description": "Todo list app with Node.js, Express, PostgreSQL, TypeORM, JWT",
   "main": "dist/index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nihal136/task-scheduler.git"
-  },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
