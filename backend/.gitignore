@@ -1,0 +1,7 @@
+.env
+
+node_modules/
+
+*InitialMigration.ts
+
+dist/
