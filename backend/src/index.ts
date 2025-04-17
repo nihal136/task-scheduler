@@ -4,12 +4,19 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
 import taskRoutes from "./routes/taskRoutes";
+import cors from "cors";
 
 dotenv.config();
 const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:5173", // frontend port (Vite default)
+    // credentials: true,
+  })
+);
 app.use(express.json());
 const port = process.env.PORT;
-app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
