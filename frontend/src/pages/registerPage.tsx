@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/apiInstance";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
-import SignupFormUI from "../components/registerPageUI";
+import { RegisterFormUI } from "../components/registerPageUI";
 
 interface Errors {
   api?: string;
@@ -38,7 +38,7 @@ export const Register: React.FC = () => {
       await axiosInstance.post("/auth/register", signUpRequest);
       toast.success("User registered successfully!");
 
-      navigate("/auth/login");
+      navigate("/login");
 
       setEmail("");
       setPassword("");
@@ -50,11 +50,12 @@ export const Register: React.FC = () => {
 
         if (err.response?.status === 400 && message === "Email in use") {
           toast.info("User already exists. Redirecting to login...");
-          navigate("/auth/login");
+          setTimeout(() => {
+            navigate("/login");
+          }, 2000); // 2-second delay
         } else {
           const errorMsg = message || "Signup failed.";
           setErrors({ api: errorMsg });
-          toast.error(errorMsg);
         }
       } else {
         toast.error("An unknown error occurred.");
@@ -64,7 +65,7 @@ export const Register: React.FC = () => {
   };
 
   return (
-    <SignupFormUI
+    <RegisterFormUI
       name={name}
       email={email}
       password={password}

@@ -28,16 +28,16 @@ export const login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const user = await userRepository.findOne({ where: { email } });
 
-    if (!user) return res.status(400).json({ message: "Invalid Details" });
+    if (!user) return res.status(401).json({ message: "User Does not Exist" });
 
     const passCheck = await bcrypt.compare(password, user.password);
     if (!passCheck)
-      return res.status(400).json({ message: "Invalid Credentials" });
+      return res.status(401).json({ message: "Invalid Details" });
 
     const token = generateToken({ id: user.id, email: user.email });
 
     return res.status(200).json({
-      message: "login successful",
+      message: "Login Successful",
       token: token,
     });
   } catch (err) {

@@ -11,7 +11,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // frontend port (Vite default)
+    origin: "http://localhost:8000", // frontend port (Vite default)
     // credentials: true,
   })
 );
