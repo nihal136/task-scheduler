@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/apiInstance";
 import { LoginFormUI } from "../components/loginPageUi";
+import { toast } from "react-toastify";
 
 interface Errors {
   api?: string;
@@ -28,11 +29,15 @@ export const Login: React.FC = () => {
     } catch (err) {
       if (err instanceof AxiosError) {
         const message = err.response?.data?.message;
-        if (
-          err.response?.status === 401 &&
-          (message === "Invalid Details" || message === "User Does not Exist")
-        ) {
-          setErrors({ api: message });
+        if (err.response?.status === 401) {
+          if (message === "Invalid Details") {
+            setErrors({ api: message });
+          } else if (message === "User Does not Exist") {
+            toast.info("User Not Found. Redirecting to Register...");
+            setTimeout(() => {
+              navigate("/register");
+            }, 2000); // 2-second delay
+          }
         } else {
           console.error("Login Error : ", message);
           setErrors({ api: "Login Failed!!!" });
