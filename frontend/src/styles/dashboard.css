@@ -1,0 +1,114 @@
+/* Container for the entire task list */
+.task-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Task card styling */
+.task-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    min-height: 180px;
+}
+
+.task-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+/* Priority colors */
+.task-card.low {
+    border-left: 6px solid #6dcc5f;
+}
+
+.task-card.medium {
+    border-left: 6px solid #fbd38d;
+}
+
+.task-card.high {
+    border-left: 6px solid #e53e3e;
+}
+
+/* Title and content */
+.task-card h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.task-card p {
+    font-size: 0.95rem;
+    margin: 0.25rem 0;
+}
+
+/* Button group */
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.button-group button {
+    padding: 0.5rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: none;
+}
+
+/* Edit button */
+.edit-btn {
+    background-color: #3182ce;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #2b6cb0;
+}
+
+/* Delete button */
+.delete-btn {
+    background-color: #e53e3e;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c53030;
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #4a5568;
+    margin-top: 2rem;
+}
+
+/* Add Task Button */
+.add-task-btn {
+    padding: 0.6rem 1.2rem;
+    background-color: #38a169;
+    color: white;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 1rem;
+    border: none;
+}
+
+.add-task-btn:hover {
+    background-color: #2f855a;
+}

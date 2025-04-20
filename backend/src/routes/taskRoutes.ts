@@ -4,8 +4,9 @@ import { authenticateToken } from "../middleware/auth.middleware";
 
 const router = Router();
 
-router.post("/", authenticateToken, createTask);
+router.post("/addTask", authenticateToken, createTask);
 router.get("/", authenticateToken, getTasks);
 router.put("/:id", authenticateToken, updateTask)
 router.delete("/:id", authenticateToken, deleteTask)
+
 export default router;

@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/apiInstance";
-import { LoginFormUI } from "../components/loginPageUi";
+import { LoginFormUI } from "../components/loginPageUI";
 import { toast } from "react-toastify";
 
 interface Errors {

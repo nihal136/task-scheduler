@@ -3,10 +3,25 @@ import { taskRepository } from "../repositories/taskRepository";
 
 export const createTask = async (req: Request, res: Response) => {
   try {
-    const { tasktitle, type } = req.body;
+    const {
+      tasktitle,
+      taskType,
+      description,
+      taskDueDate,
+      taskTime,
+      priority,
+    } = req.body;
     const userid = (req.user as any).id;
 
-    const task = taskRepository.create({ tasktitle, type, userid });
+    const task = taskRepository.create({
+      tasktitle,
+      taskType,
+      description,
+      userid,
+      taskDueDate,
+      taskTime,
+      priority,
+    });
     await taskRepository.save(task);
 
     return res.status(201).json(task);
@@ -29,7 +44,15 @@ export const getTasks = async (req: Request, res: Response) => {
 export const updateTask = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { tasktitle, type, isCompleted } = req.body;
+    const {
+      tasktitle,
+      taskType,
+      description,
+      taskDueDate,
+      taskTime,
+      priority,
+      status,
+    } = req.body;
     const userid = (req.user as any).id;
 
     const task = await taskRepository.findOne({
@@ -38,8 +61,12 @@ export const updateTask = async (req: Request, res: Response) => {
     if (!task) return res.status(404).json({ message: "Task not found" });
 
     task.tasktitle = tasktitle || task.tasktitle;
-    task.type = type || task.type;
-    task.isCompleted = isCompleted || task.isCompleted;
+    task.taskType = taskType || task.taskType;
+    task.description = description || task.description;
+    task.taskDueDate = taskDueDate || task.taskDueDate;
+    task.taskTime = taskTime || task.taskTime;
+    task.priority = priority || task.priority;
+    task.status = status || task.status;
 
     const updatedTask = await taskRepository.save(task);
 

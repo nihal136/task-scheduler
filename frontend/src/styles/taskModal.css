@@ -1,0 +1,136 @@
+/* Dark background overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.25s ease-in-out;
+}
+
+/* Modal box styling */
+.modal-content {
+    background: #ffffff;
+    border-radius: 1.25rem;
+    padding: 1.5rem 2rem;
+    width: 100%;
+    max-width: 400px;
+    max-height: 85vh;
+    overflow-y: auto;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    position: relative;
+    animation: slideIn 0.25s ease-out;
+}
+
+/* Modal Title */
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.25rem;
+    color: #2d3748;
+}
+
+/* Form group spacing */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.9rem;
+}
+
+/* Inputs and Textareas */
+.input {
+    padding: 0.65rem 1rem;
+    border-radius: 0.6rem;
+    border: 1px solid #cbd5e0;
+    font-size: 0.95rem;
+    background-color: #f9fafb;
+    transition: border 0.2s ease, background 0.2s ease;
+}
+
+.input:focus {
+    border-color: #3182ce;
+    background-color: #ffffff;
+    outline: none;
+}
+
+textarea.input {
+    min-height: 90px;
+    resize: vertical;
+}
+
+/* Button actions */
+.modal-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #3182ce;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2b6cb0;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: #e2e8f0;
+    color: #2d3748;
+}
+
+.btn-secondary:hover {
+    background-color: #cbd5e0;
+    transform: translateY(-1px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-15px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+    .modal-content {
+        padding: 1.25rem;
+        margin: 0 1rem;
+        max-width: 90%;
+    }
+}

@@ -20,22 +20,42 @@ export class Task {
   @Column({ nullable: false })
   userid: number;
 
+  @Column()
+  description: string;
+
   @ManyToOne(() => User, (user) => user.id, {
     nullable: false,
     onDelete: "CASCADE",
-  }) // Define the many-to-one relationship
-  @JoinColumn({ name: "userid" }) // Specify the foreign key column name
+  })
+  @JoinColumn({ name: "userid" })
   user: User;
 
   @Column({
     type: "enum",
-    enum: ["note", "reminder"],
+    enum: ["task", "reminder"],
     nullable: false,
   })
-  type: "note" | "reminder";
+  taskType: "task" | "reminder";
 
-  @Column({ default: false })
-  isCompleted: boolean;
+  @Column({ type: "date", nullable: true })
+  taskDueDate: string;
+
+  @Column({ type: "time", nullable: true })
+  taskTime: string;
+
+  @Column({
+    type: "enum",
+    enum: ["low", "medium", "high"],
+    default: "medium",
+  })
+  priority: "low" | "medium" | "high";
+
+  @Column({
+    type: "enum",
+    enum: ["pending", "in-progress", "completed", "cancelled"],
+    default: "pending",
+  })
+  status: "pending" | "in-progress" | "completed" | "cancelled";
 
   @CreateDateColumn()
   createdAt: Date;

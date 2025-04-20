@@ -1,6 +1,5 @@
 import React from "react";
 import "../styles/login.css";
-import "../styles/register.css";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -47,7 +46,7 @@ export const LoginFormUI: React.FC<Props> = ({
 
         <button type="submit">Login</button>
         <p className="redirect-text">
-          Don't have an account? <Link to="/">Signup</Link>
+          Don't have an account? <Link to="/register">SignUp</Link>
         </p>
       </form>
     </div>
