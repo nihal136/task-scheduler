@@ -1,16 +1,65 @@
-/* Container for the entire task list */
+/* Container for the entire dashboard */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar styling */
+.sidebar {
+    width: 250px;
+    background-color: #2d3748;
+    color: white;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h1 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    font-weight: bold;
+}
+
+.sidebar .nav-item {
+    padding: 0.8rem 0;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar .nav-item:hover {
+    background-color: #4a5568;
+}
+
+.sidebar .footer {
+    margin-top: auto;
+    font-size: 0.9rem;
+    color: #a0aec0;
+}
+
+/* Task List Section */
+.task-list-section {
+    flex: 1;
+    padding: 1.5rem;
+    background-color: #f7fafc;
+    overflow-y: auto;
+}
+
+/* Container for the task list */
 .task-list-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    /* Fixed 3 columns */
     gap: 1.5rem;
-    padding: 1.5rem;
     width: 100%;
     box-sizing: border-box;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Task card styling */
+/* Task Card styling */
 .task-card {
     display: flex;
     flex-direction: column;
@@ -29,23 +78,32 @@
 }
 
 /* Priority colors */
-.task-card.low {
-    border-left: 6px solid #6dcc5f;
+.task-card.note {
+    border-left: 6px solid #4a90e2;
 }
 
-.task-card.medium {
+.task-card.reminder {
     border-left: 6px solid #fbd38d;
 }
 
-.task-card.high {
-    border-left: 6px solid #e53e3e;
+/* Title and content */
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Title and content */
-.task-card h2 {
+.task-title {
     font-size: 1.2rem;
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    margin: 0;
+    flex: 1;
+    padding-right: 0.5rem;
+}
+
+.task-icon {
+    display: flex;
+    align-items: center;
 }
 
 .task-card p {
@@ -61,32 +119,30 @@
     margin-top: 1rem;
 }
 
-.button-group button {
-    padding: 0.5rem 0.9rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    border: none;
-}
-
-/* Edit button */
-.edit-btn {
-    background-color: #3182ce;
-    color: white;
-}
-
-.edit-btn:hover {
-    background-color: #2b6cb0;
-}
-
-/* Delete button */
+/* Icon buttons */
+.edit-btn,
 .delete-btn {
-    background-color: #e53e3e;
-    color: white;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    padding: 0.3rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
 }
 
+/* Edit icon hover */
+.edit-btn:hover {
+    background-color: rgba(49, 130, 206, 0.1);
+    color: #2b6cb0;
+}
+
+/* Delete icon hover */
 .delete-btn:hover {
-    background-color: #c53030;
+    background-color: rgba(229, 62, 62, 0.1);
+    color: #c53030;
 }
 
 /* Empty state */
@@ -97,18 +153,156 @@
     margin-top: 2rem;
 }
 
-/* Add Task Button */
+/* Add Task Button (Floating) */
 .add-task-btn {
-    padding: 0.6rem 1.2rem;
-    background-color: #38a169;
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, #38a169, #2f855a);
+    /* Gradient effect */
     color: white;
-    border-radius: 0.5rem;
-    font-size: 1rem;
+    border-radius: 50px;
+    /* Rounded corners */
+    font-size: 1.1rem;
+    /* Slightly larger font */
+    font-weight: bold;
+    /* Bold text */
     cursor: pointer;
-    margin: 1rem;
     border: none;
+    position: fixed;
+    /* Fixed position */
+    bottom: 2rem;
+    /* Distance from bottom */
+    right: 2rem;
+    /* Distance from right */
+    transition: all 0.3s ease;
+    /* Smooth transition */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    z-index: 10;
+    /* Ensure button stays on top */
 }
 
 .add-task-btn:hover {
+    background: linear-gradient(135deg, #2f855a, #38a169);
+    /* Inverse gradient on hover */
+    transform: translateY(-5px);
+    /* Slight hover effect */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    /* More prominent shadow */
+}
+
+.add-task-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.3);
+    /* Focus effect */
+}
+
+.add-task-btn:active {
+    transform: translateY(0);
+    /* Remove hover effect on click */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* Reset shadow */
+}
+
+/* Responsive for smaller screens */
+@media screen and (max-width: 768px) {
+    .task-list-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .sidebar {
+        width: 200px;
+        padding: 1.5rem;
+    }
+
+    .add-task-btn {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .dashboard-container {
+        flex-direction: column;
+    }
+}
+
+.task-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    align-items: center;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    background-color: #edf2f7;
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+    color: #2d3748;
+}
+
+.meta-icon {
+    margin-right: 0.4rem;
+    color: #4a5568;
+}
+
+/* Add Task Floating Button */
+.add-task-btn-floating {
+    width: 60px;
+    /* Set fixed width */
+    height: 60px;
+    /* Set fixed height to make it a perfect circle */
+    background-color: #38a169;
+    /* Green background */
+    color: white;
+    font-size: 2rem;
+    /* Large plus sign */
+    border-radius: 50%;
+    /* Ensures the button is circular */
+    border: none;
+    position: fixed;
+    /* Fixed position */
+    bottom: 2rem;
+    /* Distance from the bottom */
+    right: 2rem;
+    /* Distance from the right */
+    display: flex;
+    /* Center the plus sign */
+    justify-content: center;
+    /* Horizontally center */
+    align-items: center;
+    /* Vertically center */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    cursor: pointer;
+    z-index: 10;
+    /* Ensure the button stays on top */
+    transition: all 0.3s ease;
+    /* Smooth transition */
+}
+
+/* Hover effect */
+.add-task-btn-floating:hover {
     background-color: #2f855a;
+    /* Darker green on hover */
+    transform: translateY(-5px);
+    /* Slight hover effect */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    /* Enhanced shadow */
+}
+
+/* Focus effect */
+.add-task-btn-floating:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.3);
+    /* Focus outline */
+}
+
+/* Active effect */
+.add-task-btn-floating:active {
+    transform: translateY(0);
+    /* Reset hover effect on click */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* Reset shadow */
 }

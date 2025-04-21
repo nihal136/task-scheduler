@@ -32,13 +32,13 @@ export class Task {
 
   @Column({
     type: "enum",
-    enum: ["task", "reminder"],
+    enum: ["note", "reminder"],
     nullable: false,
   })
-  taskType: "task" | "reminder";
+  taskType: "note" | "reminder";
 
-  @Column({ type: "date", nullable: true })
-  taskDueDate: string;
+  @Column({ type: "timestamp", nullable: true })
+  taskDueDate: Date;
 
   @Column({ type: "time", nullable: true })
   taskTime: string;
@@ -52,10 +52,10 @@ export class Task {
 
   @Column({
     type: "enum",
-    enum: ["pending", "in-progress", "completed", "cancelled"],
+    enum: ["pending", "completed"],
     default: "pending",
   })
-  status: "pending" | "in-progress" | "completed" | "cancelled";
+  status: "pending" | "completed";
 
   @CreateDateColumn()
   createdAt: Date;

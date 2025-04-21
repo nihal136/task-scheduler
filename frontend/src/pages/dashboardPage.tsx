@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../api/apiInstance";
 import { TaskList } from "../components/dashboardPageUI";
-import "../styles/dashboard.css";
 import { TaskModal } from "./taskModal";
+import "../styles/dashboard.css";
 
 export interface Task {
   id: number;
@@ -14,6 +14,7 @@ export interface Task {
   priority: string;
   status: string;
 }
+
 export const Dashboard: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,15 +23,7 @@ export const Dashboard: React.FC = () => {
   const fetchTasks = async () => {
     try {
       const allTasks = await axiosInstance.get("/tasks");
-      const sortedTasks = allTasks.data.sort((a: Task, b: Task) => {
-        const priorityOrder: { [key: string]: number } = {
-          low: 1,
-          medium: 2,
-          high: 3,
-        };
-        return priorityOrder[b.priority] - priorityOrder[a.priority];
-      });
-      setTasks(sortedTasks);
+      setTasks(allTasks.data);
     } catch (error) {
       console.log("Error Fetching Tasks :", error);
     }
@@ -68,23 +61,32 @@ export const Dashboard: React.FC = () => {
   useEffect(() => {
     fetchTasks();
   }, []);
+
   return (
-    <div>
-      <button className="add-task-btn" onClick={() => openModal()}>
-        Add Task
-      </button>
-      <TaskModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        task={selectedTask}
-        refreshTasks={refreshTasks}
-      />
-      <TaskList
-        tasks={tasks}
-        onDelete={handleDelete}
-        refreshTasks={fetchTasks}
-        openEditModal={openEditModal}
-      />
+    <div className="dashboard-container">
+      <div className="sidebar">
+        <h1>Dashboard</h1>
+        <div className="nav-item">My Tasks</div>
+        <div className="footer"></div>
+      </div>
+
+      <div className="task-list-section">
+        <button className="add-task-btn-floating" onClick={() => openModal()}>
+          +
+        </button>
+        <TaskModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          task={selectedTask}
+          refreshTasks={refreshTasks}
+        />
+        <TaskList
+          tasks={tasks}
+          onDelete={handleDelete}
+          refreshTasks={fetchTasks}
+          openEditModal={openEditModal}
+        />
+      </div>
     </div>
   );
 };

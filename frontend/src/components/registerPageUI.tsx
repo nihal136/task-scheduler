@@ -8,7 +8,10 @@ interface Props {
   password: string;
   confirmPassword: string;
   errors: {
-    pass?: string;
+    name?: string;
+    email?: string;
+    password?: string;
+    confirmPassword?: string;
     api?: string;
   };
   onSubmit: (e: React.FormEvent) => void;
@@ -32,45 +35,64 @@ export const RegisterFormUI: React.FC<Props> = ({
   return (
     <div className="signup-container">
       <form onSubmit={onSubmit} className="signup-form">
-        <h2>Register User </h2>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => onChange.setName(e.target.value)}
-          required
-        />
+        <h2>Register User</h2>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => onChange.setEmail(e.target.value)}
-          required
-        />
+        <div className="input-group">
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => {
+              onChange.setName(e.target.value);
+            }}
+          />
+          {errors.name && <span className="error">{errors.name}</span>}
+        </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => onChange.setPassword(e.target.value)}
-          required
-        />
+        <div className="input-group">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => {
+              onChange.setEmail(e.target.value);
+            }}
+          />
+          {errors.email && <span className="error">{errors.email}</span>}
+        </div>
 
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => onChange.setConfirmPassword(e.target.value)}
-          required
-        />
+        <div className="input-group">
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => {
+              onChange.setPassword(e.target.value);
+            }}
+          />
+          {errors.password && <span className="error">{errors.password}</span>}
+        </div>
 
-        {errors.pass && <p>{errors.pass}</p>}
-        {errors.api && <p>{errors.api}</p>}
+        <div className="input-group">
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => {
+              onChange.setConfirmPassword(e.target.value);
+            }}
+          />
+          {errors.confirmPassword && (
+            <span className="error">{errors.confirmPassword}</span>
+          )}
+        </div>
 
-        <button type="submit">Submit</button>
+        {errors.api && <span className="error api-error">{errors.api}</span>}
+
+        <button type="submit">Sign Up</button>
+
         <p className="redirect-text">
-          Have an account? <Link to="/login">Login</Link>
+          Already have an account? <Link to="/login">Login</Link>
         </p>
       </form>
     </div>

@@ -25,7 +25,7 @@ export const LoginFormUI: React.FC<Props> = ({
   return (
     <div className="login-container">
       <form onSubmit={onSubmit} className="login-form">
-        <h2>User Login</h2>
+        <h2>Login</h2>
 
         <input
           type="email"
@@ -42,9 +42,11 @@ export const LoginFormUI: React.FC<Props> = ({
           onChange={(e) => onChange.setPassword(e.target.value)}
           required
         />
+        
         {errors.api && <p>{errors.api}</p>}
 
         <button type="submit">Login</button>
+        
         <p className="redirect-text">
           Don't have an account? <Link to="/register">SignUp</Link>
         </p>

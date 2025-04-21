@@ -1,5 +1,4 @@
 import React from "react";
-
 import "../styles/taskModal.css";
 
 interface TaskFormProps {
@@ -28,17 +27,18 @@ export const TaskForm: React.FC<TaskFormProps> = ({
   taskDueDate,
   taskTime,
   priority,
-  status,
   setTaskTitle,
   setDescription,
   setTaskType,
   setTaskDueDate,
   setTaskTime,
   setPriority,
-  setStatus,
   handleSubmit,
   onClose,
 }) => {
+  // Get today’s date in yyyy-mm-dd format
+  const today = new Date().toISOString().split("T")[0];
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
@@ -73,25 +73,26 @@ export const TaskForm: React.FC<TaskFormProps> = ({
           className="input"
           required
         >
-          <option value="task">Task</option>
+          <option value="note">Note</option>
           <option value="reminder">Reminder</option>
         </select>
       </div>
 
-      <div className="form-group">
-        <label htmlFor="taskDueDate">Due Date</label>
-        <input
-          id="taskDueDate"
-          type="date"
-          value={taskDueDate}
-          onChange={(e) => setTaskDueDate(e.target.value)}
-          className="input"
-          required
-        />
-      </div>
-
       {taskType === "reminder" && (
         <>
+          <div className="form-group">
+            <label htmlFor="taskDueDate">Due Date</label>
+            <input
+              id="taskDueDate"
+              type="date"
+              min={today}
+              value={taskDueDate}
+              onChange={(e) => setTaskDueDate(e.target.value)}
+              className="input"
+              required
+            />
+          </div>
+
           <div className="form-group">
             <label htmlFor="taskTime">Reminder Time</label>
             <input
@@ -103,39 +104,23 @@ export const TaskForm: React.FC<TaskFormProps> = ({
               required
             />
           </div>
+
+          <div className="form-group">
+            <label htmlFor="priority">Priority</label>
+            <select
+              id="priority"
+              value={priority}
+              onChange={(e) => setPriority(e.target.value)}
+              className="input"
+              required
+            >
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
         </>
       )}
-
-      <div className="form-group">
-        <label htmlFor="priority">Priority</label>
-        <select
-          id="priority"
-          value={priority}
-          onChange={(e) => setPriority(e.target.value)}
-          className="input"
-          required
-        >
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="status">Status</label>
-        <select
-          id="status"
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          className="input"
-          required
-        >
-          <option value="pending">Pending</option>
-          <option value="in-progress">In Progress</option>
-          <option value="completed">Completed</option>
-          <option value="cancelled">Cancelled</option>
-        </select>
-      </div>
 
       <div className="modal-actions">
         <button type="submit" className="btn-primary">

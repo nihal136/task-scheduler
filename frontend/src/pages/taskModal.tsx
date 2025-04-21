@@ -20,11 +20,11 @@ export const TaskModal: React.FC<TaskModalProps> = ({
   const [description, setDescription] = useState<string>(
     task?.description || ""
   );
-  const [taskType, setTaskType] = useState<string>(task?.taskType || "task");
+  const [taskType, setTaskType] = useState<string>(task?.taskType || "note");
   const [taskDueDate, setTaskDueDate] = useState<string>(
     task?.taskDueDate || ""
   );
-  const [taskTime, setTaskTime] = useState<string>(task?.taskTime || "23:59");
+  const [taskTime, setTaskTime] = useState<string>(task?.taskTime || "00:00");
   const [priority, setPriority] = useState<string>(task?.priority || "medium");
   const [status, setStatus] = useState<string>(task?.status || "pending");
 
@@ -44,12 +44,18 @@ export const TaskModal: React.FC<TaskModalProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Combine date and time into a full ISO date string
+    let combinedDateTime: Date | null = null;
+    if (taskDueDate && taskTime) {
+      combinedDateTime = new Date(`${taskDueDate}T${taskTime}`);
+    }
+
     const taskData = {
       tasktitle: taskTitle,
       description,
       taskType,
-      taskDueDate,
-      taskTime,
+      taskDueDate: combinedDateTime ? combinedDateTime.toISOString() : null,
+      taskTime, // Keep as HH:mm string
       priority,
       status,
     };
@@ -63,17 +69,17 @@ export const TaskModal: React.FC<TaskModalProps> = ({
         await axiosInstance.post("/tasks/addTask", taskData);
       }
 
-      // Refresh the task list after submission
+      // Clear form
       setTaskTitle("");
       setDescription("");
-      setTaskType("task");
+      setTaskType("note");
       setTaskDueDate("");
       setTaskTime("23:59");
       setPriority("medium");
       setStatus("pending");
 
       refreshTasks();
-      onClose(); // Close the modal after successful submission
+      onClose();
     } catch (error) {
       console.error("Error submitting task:", error);
     }
