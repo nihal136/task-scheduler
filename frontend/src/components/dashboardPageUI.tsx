@@ -98,7 +98,9 @@ export const TaskList: React.FC<TaskListProps> = ({
           </div>
         ))
       ) : (
-        <p className="empty-state">No tasks available.</p>
+        <div className="empty-state">
+          No tasks available. Click "+" to add one!
+        </div>
       )}
     </div>
   );
